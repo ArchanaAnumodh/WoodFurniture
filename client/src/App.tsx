@@ -14,6 +14,7 @@ import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import Contact from "@/pages/Contact";
 import Profile from "@/pages/Profile";
+import Cart from "@/pages/Cart";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
         <Route path="/signup" component={Signup} />
         <Route path="/contact" component={Contact} />
         <Route path="/profile" component={Profile} />
+        <Route path="/cart" component={Cart} />
         <Route component={NotFound} />
       </Switch>
     </>
