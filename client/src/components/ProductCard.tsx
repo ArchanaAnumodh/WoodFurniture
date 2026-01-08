@@ -18,7 +18,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <Link href={`/products/${product.id}`} className="group block h-full">
+    <Link href={`/products/₹{product.id}`} className="group block h-full">
       <Card className="h-full border-none shadow-none bg-transparent overflow-hidden transition-all duration-300 hover:shadow-lg rounded-xl">
         <CardContent className="p-0 relative aspect-square bg-secondary/20 overflow-hidden rounded-xl">
           {product.isNew && (
@@ -43,7 +43,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-serif font-medium text-lg leading-tight group-hover:text-primary transition-colors">
             {product.name}
           </h3>
-          <span className="mt-1 font-medium text-foreground">${product.price.toFixed(2)}</span>
+          <span className="mt-1 font-medium text-foreground">₹{product.price.toFixed(2)}</span>
         </CardFooter>
       </Card>
     </Link>

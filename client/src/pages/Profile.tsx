@@ -13,8 +13,9 @@ export default function Profile() {
   const user = {
     name: "John Doe",
     email: "john.doe@example.com",
+    phone: "+91 8888888888",
     avatar: "https://github.com/shadcn.png",
-    memberSince: "January 2024",
+    memberSince: "January 2025",
   };
 
   const orders = [
@@ -99,7 +100,7 @@ export default function Profile() {
                   </div>
                   <div>
                     <p className="font-medium">Home</p>
-                    <p className="text-sm text-muted-foreground">123 Main St, Apt 4B<br/>New York, NY 10001</p>
+                    <p className="text-sm text-muted-foreground">123 Gandhi Nagar<br/> TamilNadu, Chennai 10001 <br/> Contact No: +91 8888888888</p>
                   </div>
                   <Button variant="ghost" size="sm" className="ml-auto">Edit</Button>
                 </div>
@@ -122,6 +123,10 @@ export default function Profile() {
                  <div className="grid gap-2">
                    <label className="text-sm font-medium">Email</label>
                    <Input defaultValue={user.email} />
+                 </div>
+                 <div className="grid gap-2">
+                   <label className="text-sm font-medium">Phone Number</label>
+                   <Input defaultValue={user.phone} />
                  </div>
                  <Button className="mt-2">Save Changes</Button>
               </CardContent>

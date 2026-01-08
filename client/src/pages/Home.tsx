@@ -84,7 +84,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Link href="/products?category=chairs" className="group relative h-[400px] overflow-hidden rounded-2xl block">
               <img 
-                src="https://images.unsplash.com/photo-1503602642458-2321114458cc?auto=format&fit=crop&q=80&w=1000" 
+                src="/images/homeChairCollectionImage.png" 
                 alt="Chairs" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -98,7 +98,7 @@ export default function Home() {
             </Link>
             <Link href="/products?category=tables" className="group relative h-[400px] overflow-hidden rounded-2xl block">
               <img 
-                src="https://images.unsplash.com/photo-1577140917170-285929db55cc?auto=format&fit=crop&q=80&w=1000" 
+                src="/images/homeTableCollectionImage.jpg" 
                 alt="Tables" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />

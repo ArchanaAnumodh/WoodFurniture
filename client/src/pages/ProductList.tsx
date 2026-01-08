@@ -63,8 +63,8 @@ export default function ProductList() {
               <h3 className="font-serif text-lg font-medium mb-4">Price Range</h3>
               <Slider defaultValue={[0, 1000]} max={2000} step={10} className="mb-4" />
               <div className="flex justify-between text-sm text-muted-foreground">
-                <span>$0</span>
-                <span>$2000+</span>
+                <span>₹0</span>
+                <span>₹2000+</span>
               </div>
             </div>
 

@@ -77,7 +77,7 @@ export default function ProductDetails() {
               <span className="text-sm text-muted-foreground">(24 reviews)</span>
             </div>
             
-            <p className="text-2xl font-medium mb-8">${product.price.toFixed(2)}</p>
+            <p className="text-2xl font-medium mb-8">₹{product.price.toFixed(2)}</p>
             
             <div className="prose prose-stone text-muted-foreground mb-8">
               <p>{product.description}</p>
@@ -108,7 +108,7 @@ export default function ProductDetails() {
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
-              <Button size="lg" className="flex-1 rounded-full text-base">Add to Cart - ${(product.price * quantity).toFixed(2)}</Button>
+              <Button size="lg" className="flex-1 rounded-full text-base">Add to Cart - ₹{(product.price * quantity).toFixed(2)}</Button>
               <Button variant="outline" size="icon" className="rounded-full aspect-square">
                 <Heart className="h-5 w-5" />
               </Button>
