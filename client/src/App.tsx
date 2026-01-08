@@ -15,6 +15,8 @@ import Signup from "@/pages/Signup";
 import Contact from "@/pages/Contact";
 import Profile from "@/pages/Profile";
 
+
+
 function Router() {
   return (
     <>

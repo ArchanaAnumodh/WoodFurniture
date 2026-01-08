@@ -55,7 +55,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium mb-1">Visit Our Showroom</h3>
-                  <p className="text-muted-foreground">123 Artisan Way<br/>Portland, OR 97204</p>
+                  <p className="text-muted-foreground">123 Chennai<br/>TamilNadu, India</p>
                 </div>
               </div>
               
@@ -65,7 +65,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium mb-1">Call Us</h3>
-                  <p className="text-muted-foreground">(555) 123-4567</p>
+                  <p className="text-muted-foreground">+91 xxxxxxxxxx</p>
                 </div>
               </div>
 
