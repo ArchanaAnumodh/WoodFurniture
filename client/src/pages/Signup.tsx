@@ -32,15 +32,49 @@ export default function Signup() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof signupSchema>) {
-    console.log(values);
-    toast({
-      title: "Account Created",
-      description: "Welcome to WoodCraft! Please sign in.",
-    });
-    // Mock signup redirect
-    setTimeout(() => setLocation("/login"), 1000);
+  async function onSubmit(values: z.infer<typeof signupSchema>) {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/accounts/signup/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          full_name: values.name,
+          email: values.email,
+          password: values.password,
+          confirm_password: values.confirmPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: "Signup failed",
+          description: data.error || "Something went wrong",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Account Created",
+        description: "Please log in",
+      });
+
+      setLocation("/login");
+
+    } catch (error) {
+      toast({
+        title: "Server error",
+        description: "Unable to connect to server",
+        variant: "destructive",
+      });
+    }
   }
+
+
 
   return (
     <Layout>
