@@ -2,9 +2,10 @@ from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.middleware.csrf import get_token
 from rest_framework import status
 from .models import UserProfile
-
+from django.contrib.auth import authenticate, login
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -13,6 +14,7 @@ def signup(request):
     email = request.data.get('email')
     password = request.data.get('password')
     confirm_password = request.data.get('confirm_password')
+    print(request.data)
 
     # Validation
     if not all([full_name, email, password, confirm_password]):
@@ -68,3 +70,48 @@ def signup(request):
             {"error": "Failed to create account"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def login_view(request):
+    email = request.data.get("email")
+    password = request.data.get("password")
+    print(request.data)
+
+    if not email or not password:
+        return Response(
+            {"error": "Email and password are required"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # IMPORTANT: username=email
+    user = authenticate(username=email, password=password)
+
+    if user is None:
+        return Response(
+            {"error": "Invalid credentials"},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    return Response(
+        {
+            "message": "Login successful",
+            "user": {
+                "id": user.id,
+                "email": user.email,
+                "full_name": user.profile.full_name if hasattr(user, "profile") else "",
+            }
+        },
+        status=status.HTTP_200_OK
+    )
+
+@api_view(["GET", "POST"])
+def debug_view(request):
+    print("🟢 DEBUG VIEW HIT")
+    print("METHOD:", request.method)
+    print("PATH:", request.path)
+    print("DATA:", request.data)
+    return Response({"ok": True})
+
+@api_view(["GET"])
+def get_csrf(request):
+    return Response({"csrfToken": get_token(request)})

@@ -25,15 +25,52 @@ export default function Login() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
-    toast({
-      title: "Welcome back!",
-      description: "You have successfully logged in.",
-    });
-    // Mock login redirect
-    setTimeout(() => setLocation("/profile"), 1000);
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    try {
+
+      const csrfRes = await fetch("http://127.0.0.1:8000/accounts/csrf/", {
+        credentials: "include",
+      });
+      const { csrfToken } = await csrfRes.json();
+      const response = await fetch("http://127.0.0.1:8000/accounts/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        credentials: "include",
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: "Login failed",
+          description: data.error || "Invalid credentials",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Welcome back",
+        description: data.user.full_name,
+      });
+
+      setLocation("/profile");
+
+    } catch {
+      toast({
+        title: "Server error",
+        description: "Unable to connect to server",
+        variant: "destructive",
+      });
+    }
   }
+
+   
+   
 
   return (
     <Layout>

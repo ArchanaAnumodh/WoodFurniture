@@ -34,10 +34,16 @@ export default function Signup() {
 
   async function onSubmit(values: z.infer<typeof signupSchema>) {
     try {
+      const csrfRes = await fetch("http://127.0.0.1:8000/accounts/csrf/", {
+        credentials: "include",
+      });
+      const { csrfToken } = await csrfRes.json()
+
       const response = await fetch("http://127.0.0.1:8000/accounts/signup/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
         },
         body: JSON.stringify({
           full_name: values.name,
