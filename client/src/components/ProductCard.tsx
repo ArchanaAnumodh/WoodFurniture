@@ -3,12 +3,16 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+interface ProductImage {
+  image: string
+}
+
 interface Product {
   id: number;
   name: string;
   price: number;
-  image: string;
   category: string;
+  images: ProductImage[] 
   isNew?: boolean;
 }
 
@@ -18,19 +22,25 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <Link href={`/products/₹{product.id}`} className="group block h-full">
+    <Link href={`/products/${product.id}`} className="group block h-full">
       <Card className="h-full border-none shadow-none bg-transparent overflow-hidden transition-all duration-300 hover:shadow-lg rounded-xl">
         <CardContent className="p-0 relative aspect-square bg-secondary/20 overflow-hidden rounded-xl">
           {product.isNew && (
             <Badge className="absolute top-3 left-3 z-10 bg-primary text-primary-foreground hover:bg-primary/90">
-              New Arrival
+              New Arrivals
             </Badge>
           )}
           <img
-            src={product.image}
+            src={
+              product.images?.[0]?.image
+               ? product.images[0].image
+              : "https://via.placeholder.com/400x300?text=No+Image"
+            }
             alt={product.name}
-            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover"
           />
+
+
           <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
              <Button size="sm" className="bg-white text-black hover:bg-white/90 shadow-md">

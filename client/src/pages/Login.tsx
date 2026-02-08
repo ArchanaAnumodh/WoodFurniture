@@ -1,12 +1,12 @@
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../components/ui/form";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 import { Link, useLocation } from "wouter";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "../hooks/use-toast";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -32,7 +32,7 @@ export default function Login() {
         credentials: "include",
       });
       const { csrfToken } = await csrfRes.json();
-      const response = await fetch("http://127.0.0.1:8000/accounts/login/", {
+      const res = await fetch("http://127.0.0.1:8000/accounts/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,21 +42,25 @@ export default function Login() {
         body: JSON.stringify(values),
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        toast({
-          title: "Login failed",
-          description: data.error || "Invalid credentials",
-          variant: "destructive",
-        });
-        return;
-      }
-
+      if (!res.ok) {
       toast({
-        title: "Welcome back",
-        description: data.user.full_name,
+        title: "Login failed",
+        description: data.detail || "Invalid email or password",
+        variant: "destructive",
       });
+      return;
+    }
+
+    // ✅ Save tokens
+    localStorage.setItem("access", data.access);
+    localStorage.setItem("refresh", data.refresh);
+
+    toast({
+      title: "Welcome back 👋",
+      description: data.user?.full_name || "Login successful",
+    });
 
       setLocation("/profile");
 
